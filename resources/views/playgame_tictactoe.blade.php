@@ -56,7 +56,12 @@
             </div>
         </div>
       <hr>
-
+    <div class="row">
+        <div class="offset-8 col-4  col-md-2 offset-md-10">
+            <button type="button" class="btn btn-warning w-100" onclick="ReplayGame();">Replay</button>
+        </div>
+    </div>
+    <br>
       <div class="row">
           <div class="col-12" id="content-board">
              
@@ -71,11 +76,32 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 <script>
     var arrBorad  = [];
-    var gamePlay = "play1";
+    var gamePlay  = "play1";
+    var replayPlayer = [];
 
     function Reload(){
         location.reload();
     }
+
+    function ReplayGame(){
+        let n = replayPlayer.length-2;
+        if(n>=0){
+            
+            GenTableBoard(replayPlayer[n]);
+            arrBorad = JSON.parse(JSON.stringify(replayPlayer[n]));
+            replayPlayer.pop();
+            
+        }else{
+            arrBorad = [];
+            GenTableBoard();
+            replayPlayer.pop();
+        }
+    }
+
+    function CheckPlayGame(){
+
+    }
+
     function CheckField(){
         let statusCheckField = true;
        $(".check-field").each(function(e){
@@ -105,7 +131,7 @@
                     let arrBoradItems = [];
                    
                         for(let j=0;j<numberBoard;j++){
-                            arrBoradItems[j] = {"item_id":i+"-"+j,"value":""};
+                            arrBoradItems[j] = {"item_id":i+"-"+j,"value":"&nbsp;"};
                         }
                         arrBorad[i] = arrBoradItems;
                 }
@@ -117,21 +143,30 @@
 
     function SetXO(node){
         let val = $(node).text();
+        let dataId =$(node).parent().attr("data-id");
+        let arrIndex = dataId.split("-");
         if(!isNaN(val)){
             if(gamePlay == "play1"){
                 $(node).text("X");
+                arrBorad[arrIndex[0]][arrIndex[1]].value = "X";
                 gamePlay = "play2";
             }else{
                 $(node).text("O");
+                arrBorad[arrIndex[0]][arrIndex[1]].value = "O";
                 gamePlay = "play1";
             }
-           
+          let temData = JSON.parse(JSON.stringify(arrBorad));
+       
+           //set value replay
+           replayPlayer.push(temData);
         }
-        
     }
 
-    function GenTableBoard(){
-       let dataBoard = GenDataBoard();
+    function GenTableBoard(dataBoard){
+        if(dataBoard == undefined){
+           dataBoard = GenDataBoard();
+        }
+      
        let checkField = CheckField();
        if(dataBoard && checkField){
         gamePlayname = $("#play1").val();
@@ -141,7 +176,8 @@
         tableBoard += `<tr>`;
       
         item.forEach((item2,index2)=>{
-            tableBoard += `<td data-id="${item2.item_id}"><button type="button" class="btn btn-light w-100 h-btn" onclick="SetXO(this);">&nbsp;</button></td>`;
+            
+            tableBoard += `<td data-id="${item2.item_id}"><button type="button" class="btn btn-light w-100 h-btn" onclick="SetXO(this);">${item2.value}</button></td>`;
         });
         tableBoard += `</tr>`;
        });
