@@ -7,14 +7,151 @@
     <title>Game Tic tac toe</title>
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<style>
+    .h-btn{
+        height: 4rem !important;
+    }
+</style>
 </head>
 <body>
 
+          <!-- As a heading -->
+          <nav class="navbar navbar-dark bg-primary">
+            <div class="container-fluid">
+              <span class="navbar-brand mb-0 h1">Game Tic tac toe</span>
+            </div>
+         </nav>
+<br>
+
     <div class="container">
-        <h1>test</h1>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Player1 Name * :</label>
+                    <input type="text" class="form-control check-field" placeholder="player01" value="play1" id="play1" name="play1" >
+                  </div>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Player2 Name * :</label>
+                    <input type="text" class="form-control check-field" placeholder="player02" value="play2" id="play2" name="play2" >
+                  </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 col-sm-2">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Board Size * <span id="span-size">(3x3)</span>:</label>
+                    <input type="number" id="number-board" class="form-control" value="3" placeholder="3" onchange="SetBoardSize(this)">
+                  </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-6">
+                <button type="button" class="btn btn-success" onclick="GenTableBoard();">Ok</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary" onclick="Reload();">Reset</button>
+            </div>
+        </div>
+      <hr>
+
+      <div class="row">
+          <div class="col-12" id="content-board">
+             
+          </div>
+      </div>
+
     </div>
+
     
    <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script>
+    var arrBorad  = [];
+    var gamePlay = "play1";
+
+    function Reload(){
+        location.reload();
+    }
+    function CheckField(){
+        let statusCheckField = true;
+       $(".check-field").each(function(e){
+           if($(this).val() == ""){
+               alert("please input name player");
+               statusCheckField = false;
+           }
+       });
+
+       return statusCheckField;
+    }
+
+    function SetBoardSize(node){
+        let sizeNumber = $(node).val();
+        let textSize   = `(${sizeNumber}x${sizeNumber})`;
+        $("#span-size").text(textSize);
+    }
+
+    function GenDataBoard(){
+        let numberBoard = $("#number-board").val();
+
+        if(numberBoard == "" || numberBoard <= 0){
+           return alert("please input number");
+        }else{
+            arrBorad = [];
+                for(let i = 0;i <numberBoard;i++){
+                    let arrBoradItems = [];
+                   
+                        for(let j=0;j<numberBoard;j++){
+                            arrBoradItems[j] = {"item_id":i+"-"+j,"value":""};
+                        }
+                        arrBorad[i] = arrBoradItems;
+                }
+                 return arrBorad;
+       
+        }
+       
+    }
+
+    function SetXO(node){
+        let val = $(node).text();
+        if(!isNaN(val)){
+            if(gamePlay == "play1"){
+                $(node).text("X");
+                gamePlay = "play2";
+            }else{
+                $(node).text("O");
+                gamePlay = "play1";
+            }
+           
+        }
+        
+    }
+
+    function GenTableBoard(){
+       let dataBoard = GenDataBoard();
+       let checkField = CheckField();
+       if(dataBoard && checkField){
+        gamePlayname = $("#play1").val();
+        let tableBoard = `<table class="table table-bordered">`;
+      
+       dataBoard.forEach((item,index)=>{
+        tableBoard += `<tr>`;
+      
+        item.forEach((item2,index2)=>{
+            tableBoard += `<td data-id="${item2.item_id}"><button type="button" class="btn btn-light w-100 h-btn" onclick="SetXO(this);">&nbsp;</button></td>`;
+        });
+        tableBoard += `</tr>`;
+       });
+       
+       tableBoard += `</table>`;
+              $("#content-board").children().remove();
+                $("#content-board").append(tableBoard);
+       }
+    
+    }
+</script>
 </body>
 </html>
