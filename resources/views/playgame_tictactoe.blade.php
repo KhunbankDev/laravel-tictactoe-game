@@ -75,8 +75,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 <script>
-    var arrBorad  = [];
-    var gamePlay  = "play1";
+    var arrBorad     = [];
+    var gamePlay     = "play1";
+    var namePlayer1  = "";
+    var namePlayer2  = "";
     var replayPlayer = [];
 
     function Reload(){
@@ -99,7 +101,72 @@
     }
 
     function CheckPlayGame(){
+        let arrBoradlength = arrBorad.length;
 
+        //check row
+        arrBorad.forEach((item,key)=>{
+            let rowTemp = [];
+            
+            item.forEach((item2,key2)=>{
+                rowTemp.push(item2.value);
+            });
+            let rowTempSet = new Set(rowTemp);
+            //row win
+            if(!rowTempSet.has("&nbsp;") && rowTempSet.size == 1){
+                return AlertPlayWin(rowTempSet.values().next().value);
+            }
+        });
+
+        //check column
+        for(let i=0;i<arrBoradlength;i++){
+            let colTemp = [];
+            for(let j=0;j<arrBoradlength;j++){
+                colTemp.push(arrBorad[j][i].value);
+            }
+            let colTempSet = new Set(colTemp);
+            //col win
+            if(!colTempSet.has("&nbsp;") && colTempSet.size == 1){
+                return AlertPlayWin(colTempSet.values().next().value);
+            }
+        }
+
+        //check diagonal
+        let diagStartTemp = [];
+        for(let j=0;j<arrBoradlength;j++){
+            diagStartTemp.push(arrBorad[j][j].value);
+        }
+        let diagStartTempSet = new Set(diagStartTemp);
+        //diagStart win
+        if(!diagStartTempSet.has("&nbsp;") && diagStartTempSet.size == 1){
+            return AlertPlayWin(diagStartTempSet.values().next().value);
+        }
+
+        let diagEndTemp = [];
+        let i =0;
+        for(let j=arrBoradlength-1;j>=0;j--){
+            diagEndTemp.push(arrBorad[j][i].value);
+            i++;
+        }
+        let diagEndTempSet = new Set(diagEndTemp);
+        //diagEnd win
+        if(!diagEndTempSet.has("&nbsp;") && diagEndTempSet.size == 1){
+            return AlertPlayWin(diagEndTempSet.values().next().value);
+        }
+     
+    }
+
+    function AlertPlayWin(playName){
+        let namePlayer = "";
+        if(playName == "X"){
+            namePlayer = namePlayer1;
+        }else{
+            namePlayer = namePlayer2;
+        }
+
+        if(confirm(namePlayer+" YouWin. Reset plase ok.")){
+            Reload();
+        }
+     
     }
 
     function CheckField(){
@@ -141,35 +208,41 @@
        
     }
 
-    function SetXO(node){
+  function SetXO(node){
         let val = $(node).text();
         let dataId =$(node).parent().attr("data-id");
         let arrIndex = dataId.split("-");
         if(!isNaN(val)){
             if(gamePlay == "play1"){
-                $(node).text("X");
+                // $(node).text("X");
                 arrBorad[arrIndex[0]][arrIndex[1]].value = "X";
                 gamePlay = "play2";
             }else{
-                $(node).text("O");
+                // $(node).text("O");
                 arrBorad[arrIndex[0]][arrIndex[1]].value = "O";
                 gamePlay = "play1";
             }
           let temData = JSON.parse(JSON.stringify(arrBorad));
-       
+          
            //set value replay
            replayPlayer.push(temData);
+           GenTableBoard(arrBorad);
+       
+          
         }
     }
 
-    function GenTableBoard(dataBoard){
+     function GenTableBoard(dataBoard){
         if(dataBoard == undefined){
            dataBoard = GenDataBoard();
         }
       
        let checkField = CheckField();
        if(dataBoard && checkField){
-        gamePlayname = $("#play1").val();
+       
+        namePlayer1 = $("#play1").val();
+        namePlayer2 = $("#play2").val();
+
         let tableBoard = `<table class="table table-bordered">`;
       
        dataBoard.forEach((item,index)=>{
@@ -186,6 +259,8 @@
               $("#content-board").children().remove();
                 $("#content-board").append(tableBoard);
        }
+
+        CheckPlayGame();
     
     }
 </script>
