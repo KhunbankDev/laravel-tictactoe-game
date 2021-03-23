@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('playgame_tictactoe');
-});
+Route::get('/','PlayGameController@index');
+Route::post('api_create','PlayGameController@store');
+Route::get('api_show/{id}','PlayGameController@show');
