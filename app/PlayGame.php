@@ -8,7 +8,7 @@ class PlayGame extends Model
 {
     protected $table = 'playgame';
     protected $primaryKey = 'id';
-    
+    protected $guarded = [];
 
     public function Boardgame()
     {
