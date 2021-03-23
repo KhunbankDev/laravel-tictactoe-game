@@ -86,6 +86,7 @@
     var namePlayer1  = "";
     var namePlayer2  = "";
     var replayPlayer = [];
+    var playId = 0;
 
     function ConvertSerialToObj(serialData){
        
@@ -107,8 +108,10 @@
           _token: $('meta[name="csrf-token"]').attr('content')
         },
         success:function(response){
-        
           GenTableBoard();
+          if(response.id != ""){
+            playId = response.id;
+          }
         },
        });
     }
