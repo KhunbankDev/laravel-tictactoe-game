@@ -102,7 +102,7 @@
         $.ajax({
         url: "/api_create",
         type:"POST",
-        dataType:"HTML",
+        dataType:"json",
         data:{
             formData,
           _token: $('meta[name="csrf-token"]').attr('content')
@@ -111,7 +111,7 @@
           GenTableBoard();
           if(response.id != " "){
             playId = response.id;
-            console.log(playId);
+            console.log(response);
           }
         },
        });
