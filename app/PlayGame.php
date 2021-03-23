@@ -8,6 +8,7 @@ class PlayGame extends Model
 {
     protected $table = 'playgame';
     protected $primaryKey = 'id';
+    protected $fillable = [];
 
     public function Boardgame()
     {
