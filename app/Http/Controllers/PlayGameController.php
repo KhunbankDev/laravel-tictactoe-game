@@ -37,8 +37,10 @@ class PlayGameController extends Controller
     public function store(Request $request)
     {
         $arrRequest = $request->all();
-        $result = PlayGame::where(["play1_name"=>$arrRequest['formData']['play1'],"play2_name"=>$arrRequest['formData']['play2']])->get();
-        
+     
+        $result = PlayGame::updateOrCreate(
+            ["play1_name"=>$arrRequest['formData']['play1'],"play2_name"=>$arrRequest['formData']['play2']],
+            ["play1_name"=>$arrRequest['formData']['play1'],"play2_name"=>$arrRequest['formData']['play2']]);
         dd($result);
     }
 
