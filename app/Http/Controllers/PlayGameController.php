@@ -46,7 +46,13 @@ class PlayGameController extends Controller
             "play2_name"=>$arrRequest['formData']['play2'],
             "created_at"=>date("Y-m-d H:i:s"),
             ]);
-        dd($result->id);
+        
+            if($result){
+                $arrResponse = ["message"=>"Success","id"=>$result->id];
+            }else{
+                $arrResponse = ["message"=>"Un Success","id"=>""];
+            }
+            return response()->json($arrResponse);
     }
 
     /**
