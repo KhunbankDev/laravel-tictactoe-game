@@ -46,7 +46,7 @@ class PlayGameController extends Controller
             "play2_name"=>$arrRequest['formData']['play2'],
             "created_at"=>date("Y-m-d H:i:s"),
             ]);
-        dd($result);
+        dd($result->id);
     }
 
     /**
