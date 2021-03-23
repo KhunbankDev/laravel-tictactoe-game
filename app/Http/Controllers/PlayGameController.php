@@ -43,7 +43,8 @@ class PlayGameController extends Controller
             [
             "app_name"=>"laravel",
             "play1_name"=>$arrRequest['formData']['play1'],
-            "play2_name"=>$arrRequest['formData']['play2']
+            "play2_name"=>$arrRequest['formData']['play2'],
+            "created_at"=>date("Y-m-d H:i:s"),
             ]);
         dd($result);
     }
