@@ -109,8 +109,9 @@
         },
         success:function(response){
           GenTableBoard();
-          if(response.id != ""){
+          if(response.id != " "){
             playId = response.id;
+            console.log(playId);
           }
         },
        });
