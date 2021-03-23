@@ -111,7 +111,6 @@
           GenTableBoard();
           if(response.id != " "){
             playId = response.id;
-            console.log(response);
           }
         },
        });
