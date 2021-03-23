@@ -40,7 +40,11 @@ class PlayGameController extends Controller
      
         $result = PlayGame::updateOrCreate(
             ["play1_name"=>$arrRequest['formData']['play1'],"play2_name"=>$arrRequest['formData']['play2']],
-            ["play1_name"=>$arrRequest['formData']['play1'],"play2_name"=>$arrRequest['formData']['play2']]);
+            [
+            "app_name"=>"laravel",
+            "play1_name"=>$arrRequest['formData']['play1'],
+            "play2_name"=>$arrRequest['formData']['play2']
+            ]);
         dd($result);
     }
 
