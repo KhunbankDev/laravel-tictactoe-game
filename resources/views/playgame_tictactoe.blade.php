@@ -99,6 +99,8 @@
     }
 
     function ApiCreate(){
+        namePlayer1 = $("#play1").val();
+        namePlayer2 = $("#play2").val();
         let formData = ConvertSerialToObj($('#form-request').serializeArray());
         $.ajax({
         url: "/api_create",
@@ -197,7 +199,7 @@
     }
 
     function AlertPlayWin(playName){
-        console.log(playName);
+       
         let namePlayer = "";
         if(playName == "X"){
             namePlayer = namePlayer1;
@@ -205,11 +207,11 @@
             namePlayer = namePlayer2;
         }
 
-        // if(confirm(namePlayer+" YouWin. Reset plase ok.")){
-        //     namePlayWin = namePlayer;
-        //     ApiCreate();
-        //     //Reload();
-        // }
+        if(confirm(namePlayer+" YouWin. Reset plase ok.")){
+            namePlayWin = namePlayer;
+            ApiCreate();
+            Reload();
+        }
      
     }
 
