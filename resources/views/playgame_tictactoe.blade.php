@@ -202,7 +202,7 @@
 
         if(confirm(namePlayer+" YouWin. Reset plase ok.")){
             ApiCreate();
-            Reload();
+            //Reload();
         }
      
     }
