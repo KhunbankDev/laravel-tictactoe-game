@@ -53,7 +53,7 @@ class PlayGameController extends Controller
                 $arrResponse = ["message"=>"Un Success","id"=>""];
             }
 
-            if(!empty($arrRequest)){
+            if(!empty($arrRequest['arrBorad'])){
                 dd($arrRequest);
             }
           
