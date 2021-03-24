@@ -202,9 +202,10 @@
             namePlayer = namePlayer2;
         }
 
-        namePlayWin = namePlayer;
+        
 
         if(confirm(namePlayer+" YouWin. Reset plase ok.")){
+            namePlayWin = namePlayer;
             ApiCreate();
             //Reload();
         }
