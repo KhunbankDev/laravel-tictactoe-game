@@ -152,6 +152,7 @@
             let rowTempSet = new Set(rowTemp);
             //row win
             if(!rowTempSet.has("&nbsp;") && rowTempSet.size == 1){
+                console.log(rowTempSet,rowTempSet.values().next().value);
                 return AlertPlayWin(rowTempSet.values().next().value);
             }
         });
