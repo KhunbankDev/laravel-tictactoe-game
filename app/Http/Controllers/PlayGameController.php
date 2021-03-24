@@ -54,7 +54,8 @@ class PlayGameController extends Controller
             }
 
             if(!empty($arrRequest['arrBorad'])){
-                dd($arrRequest);
+                dd($arrRequest,json_encode($arrRequest['arrBorad']));
+
             }
           
             return response()->json($arrResponse);
