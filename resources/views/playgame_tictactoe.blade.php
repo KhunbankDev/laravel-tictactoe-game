@@ -150,6 +150,7 @@
                 rowTemp.push(item2.value);
             });
             let rowTempSet = new Set(rowTemp);
+            console.log(rowTempSet);
             //row win
             if(!rowTempSet.has("&nbsp;") && rowTempSet.size == 1){
                 console.log(rowTempSet,rowTempSet.values().next().value);
