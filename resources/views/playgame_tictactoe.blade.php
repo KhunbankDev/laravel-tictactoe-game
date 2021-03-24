@@ -105,6 +105,8 @@
         dataType:"json",
         data:{
             formData,
+            arrBorad,
+            replayPlayer,
           _token: $('meta[name="csrf-token"]').attr('content')
         },
         success:function(response){

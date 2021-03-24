@@ -52,6 +52,8 @@ class PlayGameController extends Controller
             }else{
                 $arrResponse = ["message"=>"Un Success","id"=>""];
             }
+
+           dd($arrRequest);
             return response()->json($arrResponse);
     }
 
