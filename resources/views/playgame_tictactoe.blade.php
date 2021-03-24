@@ -67,7 +67,7 @@
         </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row" id="spin">
         <div class="col-12 ">
             <div class="text-center">
                 <div class="spinner-border text-primary" role="status">
@@ -123,12 +123,18 @@
             namePlayWin,
           _token: $('meta[name="csrf-token"]').attr('content')
         },
+        beforeSend:function(){
+            $("#spin").css("display","block");
+        },
         success:function(response){
           GenTableBoard();
           if(response.id != " "){
             playId = response.id;
           }
         },
+        complete:function(){
+            $("#spin").css("display","none");
+        }
        });
     }
 
