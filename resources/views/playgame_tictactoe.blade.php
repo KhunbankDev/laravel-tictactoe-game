@@ -67,6 +67,13 @@
         </div>
     </div>
     <br>
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+        </div>
+    </div>
       <div class="row">
           <div class="col-12" id="content-board">
              
