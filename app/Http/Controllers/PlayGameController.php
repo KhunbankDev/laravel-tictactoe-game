@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PlayGame;
+use App\Boardgame;
 
 class PlayGameController extends Controller
 {
@@ -36,16 +37,15 @@ class PlayGameController extends Controller
      */
     public function store(Request $request)
     {
-        $arrRequest = $request->all();
-     
-        $result = PlayGame::updateOrCreate(
-            ["play1_name"=>$arrRequest['formData']['play1'],"play2_name"=>$arrRequest['formData']['play2']],
-            [
-            "app_name"=>"laravel",
-            "play1_name"=>$arrRequest['formData']['play1'],
-            "play2_name"=>$arrRequest['formData']['play2'],
-            "created_at"=>date("Y-m-d H:i:s"),
-            ]);
+        $arrRequest   = $request->all();
+        $arrCondition = ["play1_name"=>$arrRequest['formData']['play1'],"play2_name"=>$arrRequest['formData']['play2']];
+        $arrInsert    =  [
+                            "app_name"=>"laravel",
+                            "play1_name"=>$arrRequest['formData']['play1'],
+                            "play2_name"=>$arrRequest['formData']['play2'],
+                            "created_at"=>date("Y-m-d H:i:s"),
+                         ];
+        $result = PlayGame::updateOrCreate($arrCondition,$arrInsert);
         
             if($result){
                 $arrResponse = ["message"=>"Success","id"=>$result->id];
@@ -54,7 +54,20 @@ class PlayGameController extends Controller
             }
 
             if(!empty($arrRequest['arrBorad'])){
-                dd($arrRequest,json_encode($arrRequest['arrBorad']));
+            
+                $arrCondition = [
+                                 "ref_playgame_id"=>$result->id,
+                                 "board_size"=>$arrRequest['formData']['board_size']
+                                ];
+                $arrInsert  = [ 
+                                "ref_playgame_id"=>$result->id,
+                                "board_size" =>$arrRequest['formData']['board_size'],
+                                "status_play"=>$arrRequest['namePlayWin'],
+                                "json_board"=>json_encode($arrRequest['arrBorad']),
+                                "json_replaygame"=>json_encode($arrRequest['replayPlayer']),
+                                "created_at"=>date("Y-m-d H:i:s"),
+                                ];
+                $resultBoard = Boardgame::updateOrCreate($arrCondition,$arrInsert);
 
             }
           

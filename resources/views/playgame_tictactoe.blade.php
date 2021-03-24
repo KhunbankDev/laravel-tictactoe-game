@@ -87,6 +87,7 @@
     var namePlayer2  = "";
     var replayPlayer = [];
     var playId = 0;
+    var namePlayWin  = "";
 
     function ConvertSerialToObj(serialData){
        
@@ -107,6 +108,7 @@
             formData,
             arrBorad,
             replayPlayer,
+            namePlayWin,
           _token: $('meta[name="csrf-token"]').attr('content')
         },
         success:function(response){
@@ -199,6 +201,8 @@
         }else{
             namePlayer = namePlayer2;
         }
+
+        namePlayWin = namePlayer;
 
         if(confirm(namePlayer+" YouWin. Reset plase ok.")){
             ApiCreate();
