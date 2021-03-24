@@ -150,10 +150,10 @@
                 rowTemp.push(item2.value);
             });
             let rowTempSet = new Set(rowTemp);
-            console.log(rowTempSet);
+           
             //row win
             if(!rowTempSet.has("&nbsp;") && rowTempSet.size == 1){
-                console.log(rowTempSet,rowTempSet.values().next().value);
+               
                 return AlertPlayWin(rowTempSet.values().next().value);
             }
         });
@@ -197,6 +197,7 @@
     }
 
     function AlertPlayWin(playName){
+        console.log(playName);
         let namePlayer = "";
         if(playName == "X"){
             namePlayer = namePlayer1;
@@ -204,13 +205,11 @@
             namePlayer = namePlayer2;
         }
 
-        
-
-        if(confirm(namePlayer+" YouWin. Reset plase ok.")){
-            namePlayWin = namePlayer;
-            ApiCreate();
-            //Reload();
-        }
+        // if(confirm(namePlayer+" YouWin. Reset plase ok.")){
+        //     namePlayWin = namePlayer;
+        //     ApiCreate();
+        //     //Reload();
+        // }
      
     }
 
