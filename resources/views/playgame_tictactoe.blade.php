@@ -67,7 +67,7 @@
         </div>
     </div>
     <br>
-    <div class="row" id="spin">
+    <div class="row" id="spin" style="display: none;">
         <div class="col-12 ">
             <div class="text-center">
                 <div class="spinner-border text-primary" role="status">
