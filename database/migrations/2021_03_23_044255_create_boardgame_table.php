@@ -17,6 +17,7 @@ class CreateBoardgameTable extends Migration
             $table->id();
             $table->integer('ref_playgame_id');
             $table->string('board_size');
+            $table->string('status_play');
             $table->json('json_board');
             $table->json('json_replaygame');
             $table->timestamp('created_at')->nullable();
