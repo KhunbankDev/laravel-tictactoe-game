@@ -149,33 +149,36 @@
     }
 
     function ApiCreate(){
-        namePlayer1 = $("#play1").val();
-        namePlayer2 = $("#play2").val();
-        let formData = ConvertSerialToObj($('#form-request').serializeArray());
-        $.ajax({
-        url: "/api_create",
-        type:"POST",
-        dataType:"json",
-        data:{
-            formData,
-            arrBorad,
-            replayPlayer,
-            namePlayWin,
-          _token: $('meta[name="csrf-token"]').attr('content')
-        },
-        beforeSend:function(){
-            $("#spin").css("display","block");
-        },
-        success:function(response){
-          GenTableBoard();
-          if(response.id != " "){
-            playId = response.id;
-          }
-        },
-        complete:function(){
-            $("#spin").css("display","none");
+        namePlayer1    = $("#play1").val();
+        namePlayer2    = $("#play2").val();
+        let formData   = ConvertSerialToObj($('#form-request').serializeArray());
+        let checkField = CheckField();
+        if(checkField){
+            $.ajax({
+                    url: "/api_create",
+                    type:"POST",
+                    dataType:"json",
+                    data:{
+                        formData,
+                        arrBorad,
+                        replayPlayer,
+                        namePlayWin,
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    beforeSend:function(){
+                        $("#spin").css("display","block");
+                    },
+                    success:function(response){
+                    GenTableBoard();
+                    if(response.id != " "){
+                        playId = response.id;
+                    }
+                    },
+                    complete:function(){
+                        $("#spin").css("display","none");
+                    }
+                });
         }
-       });
     }
 
     function Reload(){
@@ -296,7 +299,9 @@
         let numberBoard = $("#number-board").val();
 
         if(numberBoard == "" || numberBoard <= 0){
-           return alert("please input number");
+            $("#text-content-alert").text("please input number");
+            alertModal.show();
+           return arrBorad;
         }else{
             arrBorad = [];
                 for(let i = 0;i <numberBoard;i++){
