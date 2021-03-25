@@ -129,8 +129,12 @@
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
-      var myModal    = new bootstrap.Modal(document.getElementById('exampleModal'));
-      var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+      let settingModal = {
+                            backdrop:'static',
+                            keyboard: false
+                        };
+      var myModal    = new bootstrap.Modal(document.getElementById('exampleModal'),settingModal);
+      var alertModal = new bootstrap.Modal(document.getElementById('alertModal'),settingModal);
     var arrBorad     = [];
     var gamePlay     = "play1";
     var namePlayer1  = "";
