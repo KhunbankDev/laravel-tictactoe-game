@@ -249,6 +249,7 @@
     }
 
     function ConfirmReload(){
+        myModal.hide();
         ApiCreate();
         Reload();
     }
