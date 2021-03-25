@@ -104,6 +104,24 @@
     </div>
   </div>
 
+      <!-- Modal Alert-->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">แจ้งเตือน</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <span id="text-content-alert"></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
     
    <!-- JavaScript Bundle with Popper -->
@@ -111,7 +129,8 @@
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
-      var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+      var myModal    = new bootstrap.Modal(document.getElementById('exampleModal'));
+      var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
     var arrBorad     = [];
     var gamePlay     = "play1";
     var namePlayer1  = "";
@@ -258,7 +277,8 @@
         let statusCheckField = true;
        $(".check-field").each(function(e){
            if($(this).val() == ""){
-               alert("please input name player");
+               $("#text-content-alert").text("please input name player");
+               alertModal.show();
                statusCheckField = false;
            }
        });
