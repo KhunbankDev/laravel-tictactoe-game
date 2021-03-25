@@ -244,7 +244,7 @@
             namePlayer = namePlayer2;
         }
 
-        myModal..show();
+        myModal.show();
 
         // if(confirm(namePlayer+" YouWin. Reset plase ok.")){
         //     namePlayWin = namePlayer;
